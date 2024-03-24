@@ -1,33 +1,35 @@
 ---
-import { getCollection } from 'astro:content';
+import "@/styles/globals.css";
 
-import Layout from '../layouts/Layout.astro';
-import Card from '../components/Card.astro';
-import Hero from '../components/Hero.astro';
+import { getCollection } from "astro:content";
 
-const allProjects = await getCollection('projects');
-const projects = allProjects.sort((a,b)=>{return b.data.date - a.data.date});
+import Layout from "../layouts/Layout.astro";
+import Hero from "../components/Hero.astro";
+import CustomCarousel from "../components/CustomCarousel";
+
+const shootingTypes = await getCollection("shootings");
+
 ---
 
 <Layout title="Welcome to Astro.">
   <script>
-    const masonry = () =>{
-      const portfolio = document.querySelector('.portfolio')
+    const masonry = () => {
+      const portfolio = document.querySelector(".portfolio");
       let column = 3;
 
       const responsive = [
         {
           breakpoint: 1280,
-          column: 3,
+          column: 3
         },
         {
           breakpoint: 1024,
-          column: 2,
+          column: 2
         },
         {
           breakpoint: 768,
-          column: 1,
-        },
+          column: 1
+        }
       ];
 
       const winWidth = window.innerWidth;
@@ -71,7 +73,7 @@ const projects = allProjects.sort((a,b)=>{return b.data.date - a.data.date});
         const topListHeight = getHeightAndMarginBottom(topListElm);
         const topListBottomPosi = topListElmPosi + topListHeight;
         const listElmPosi = listElm.getBoundingClientRect().top;
-        let setPosi = listElmPosi.toFixed(0) - topListBottomPosi.toFixed(0) - 16;
+        let setPosi: string | number = listElmPosi.toFixed(0) - topListBottomPosi.toFixed(0) - 16;
 
         if (setPosi === 0) {
           return false;
@@ -80,24 +82,24 @@ const projects = allProjects.sort((a,b)=>{return b.data.date - a.data.date});
         setPosi = "-" + setPosi + "px";
         listElm.style.marginTop = setPosi;
       });
-    }
+    };
 
-    const getHeightAndMarginBottom= (elm) =>{
+    const getHeightAndMarginBottom = (elm) => {
       const height = elm.getBoundingClientRect().height;
       const styles = getComputedStyle(elm);
       const bottom = parseFloat(styles.marginBottom);
       return height + bottom;
-    }
+    };
 
     masonry();
 
     window.addEventListener("resize", () => {
       masonry();
     });
-    document.addEventListener("DOMContentLoaded",()=>{
+    document.addEventListener("DOMContentLoaded", () => {
       masonry();
     });
-    document.addEventListener('astro:page-load', () => {
+    document.addEventListener("astro:page-load", () => {
       masonry();
     });
   </script>
@@ -105,13 +107,26 @@ const projects = allProjects.sort((a,b)=>{return b.data.date - a.data.date});
   <div class="relative">
     <div class="mx-auto px-8 md:max-w-7xl">
       <Hero />
-      <div class="relative w-full mt-5 mb-10">
-        <div class="clear-both relative">
-          <div class="grid flex-wrap items-start grid-cols-1 gap-4 lg:grid-cols-3 md:grid-cols-2 portfolio gap-8 ">
-            {projects.map((project,index)=><Card index={index+1} slug={project.slug} title={project.data.title} image={project.data.image} tags={project.data.tag} />)}
+      {shootingTypes.map(type => (
+
+        <figure class="shrink-0 w-full relative my-12">
+          <h2 class="font-light text-4xl -tracking-wider mt-0 mb-8 mx-0">
+            <span class="text-[1.5em]">{type.data.title}</span>
+          </h2>
+          <div class="relative">
+            <span class="relative block transition duration-500 ease-in-out transform rounded hover:scale-105">
+                {/* <Image width={384} class="relative block object-contain object-center w-full h-full" loading="lazy" alt={title} src={image} /> */}
+                <CustomCarousel client:load sources={type.data.featured_images.map(el => el.image.src)} />
+
+            </span>
           </div>
-        </div>
-      </div>
+          <div class="pb-0 px-0 pt-4">
+            <a href={`/shooting/${type.slug}`} class="hover:underline text-lg mb-6 m-0 text-red-600 relative">
+              See more...
+            </a>
+          </div>
+        </figure>
+      ))}
     </div>
   </div>
 </Layout>
