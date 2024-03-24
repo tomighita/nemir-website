@@ -42,7 +42,6 @@ const settings = defineCollection({
       description: z.string().optional(),
       logo: image().optional(),
       keywords: z.array(z.string()).optional(),
-      project_tags: z.array(z.string()).optional(),
       socials: z
         .array(
           z.object({
