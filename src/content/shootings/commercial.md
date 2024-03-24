@@ -1,5 +1,5 @@
 ---
-title: Commercial
+title: Commercial Shootings
 featured_images:
   - image: assets/commercial/FDKarlLagerfield1.jpg
     image_title: Fashion Days KL
