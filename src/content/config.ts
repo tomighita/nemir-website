@@ -13,22 +13,24 @@ const projectsCollection = defineCollection({
 
 const shootingTypesCollection = defineCollection({
   type: "content",
-  schema: ({image}) =>
+  schema: ({ image }) =>
     z.object({
       title: z.string(),
-      featured_images: z.array(
-        z.object({
-          image: image(),
-          image_title: z.string(),
-        })
-      ).max(5),
+      featured_images: z
+        .array(
+          z.object({
+            image: image(),
+            image_title: z.string(),
+          }),
+        )
+        .max(5),
       images: z.array(
         z.object({
           image: image(),
-          image_title: z.string()
-        })
-      )
-    })
+          image_title: z.string(),
+        }),
+      ),
+    }),
 });
 
 const settings = defineCollection({
