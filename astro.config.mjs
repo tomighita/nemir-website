@@ -1,5 +1,4 @@
 import { defineConfig, squooshImageService } from "astro/config";
-import robots from "astro-robots";
 import sitemap from "@astrojs/sitemap";
 import tailwind from "@astrojs/tailwind";
 import react from "@astrojs/react";
@@ -10,9 +9,9 @@ import cloudflare from "@astrojs/cloudflare";
 // https://astro.build/config
 export default defineConfig({
   image: {
-    service: squooshImageService()
+    service: squooshImageService(),
   },
   integrations: [tailwind(), sitemap(), react(), mdx()],
   output: "server",
-  adapter: cloudflare()
+  adapter: cloudflare(),
 });
