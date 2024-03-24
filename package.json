@@ -1,5 +1,5 @@
 {
-  "name": "minimma",
+  "name": "Nemir's Website",
   "type": "module",
   "version": "0.0.1",
   "scripts": {
@@ -36,5 +36,8 @@
     "@tailwindcss/typography": "^0.5.10",
     "prettier": "^3.0.3",
     "prettier-plugin-astro": "^0.12.0"
+  },
+  "optionalDependencies": {
+    "@rollup/rollup-linux-x64-gnu": "^4.13.0"
   }
 }
