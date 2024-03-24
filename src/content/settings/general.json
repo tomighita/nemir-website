@@ -2,10 +2,7 @@
   "title": "Nemir",
   "description": "Minimal portfolio template",
   "base_url": "/",
-  "keywords": [
-    "astro",
-    "template"
-  ],
+  "keywords": ["model", "fitness"],
   "logo": "assets/m.png",
   "favicon": "assets/m_w.png",
   "url": "/"
